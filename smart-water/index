@@ -1,2 +1,2 @@
 var themeloader = require("app/api/themeloader");
-return themeloader.serveTheme("app/view/html/index.html", {"theme":"smart-water", "style": true})
+return themeloader.serveTheme("app/view/html/index.unpackaged.html", {"theme":"smart-water", "style": true})
