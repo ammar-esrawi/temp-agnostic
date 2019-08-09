@@ -1,5 +1,23 @@
 //take the payload received in case renzo cannot change it and transform it
 
 //make sensor value a key and make value value its value
-
-
+var fileds=["WT",
+            "BAT",
+            "COND",
+            "ORP",
+            "DO",
+            "PH"];
+function transform(data){
+  var x=data;
+  
+  //fill object with empty fileds for the wanted fileds so he can properly load previous data to build healhty object
+  for (var i = 0; i < fileds.length; i++)
+  {
+		x[fileds[i]]="";
+  }
+  //merge sensor and value as key-pair
+  
+  x[data.sensor]=data.value;
+  
+  return x;
+}

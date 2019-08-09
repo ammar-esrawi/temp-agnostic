@@ -72,9 +72,22 @@ function buildDeviceEventDocument(entry, data) {
     delete entry.versionNumber;
     delete entry.latest;
     delete entry.creator;
+  	delete entry["apsdb.update"];
+  	
   
     //MFE: Go get previous device event data and mix it with payload and the entry
-
+		//autofill missing data
+ 		log.info("entry from buildDeviceEventDocument is "+ JSON.stringify(entry))
+  	var latestEvent=getLatestDeviceEntry(entry.id);
+  	if(latestEvent){
+      for(var key in entry){
+        if(latestEvent[key] && !entry[key]  ){
+          entry[key]=latestEvent[key];
+        }
+      }
+    }
+  	log.info("entry after filling missing data from buildDeviceEventDocument is "+ JSON.stringify(entry))
+  	//end auto fill missing data
     entry["event_type"] = ["event"];
     entry["key"] = event_prefix + entry.id + "_" + new Date().getTime();
     entry["meta.types"] = {

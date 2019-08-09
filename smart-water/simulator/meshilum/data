@@ -26,7 +26,7 @@ const anonymousToken="VTk2NkM1RjhEOA==";
             "DO",
             "PH"];
         var randomDevice = devices[Math.floor(Math.random() * devices.length)];
-        var randomValue = values[Math.floor(Math.random() * values.length)];
+        var randomValue = "PH"//values[Math.floor(Math.random() * values.length)];
         //Generate random data to simulate the device data
         var dataSnap =
         {
