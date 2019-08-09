@@ -4,7 +4,7 @@ myApp.controller('mapCtrl', function($location, constants, $routeParams) {
 
     vm.sources = constants.sources;
     vm.icons = constants.infoWindows.icons;
-    
+    vm.defaultCenter=constants.mapDefaultCenter;
     vm.go = function(path) {
         $location.path(path)
     }
@@ -255,7 +255,7 @@ myApp.controller('dashboardHomeCtrl', function( $location,$scope,$rootScope,http
   
   	// only for current demo the dashboard home will redirect to the first device dashboard
   	httpClient
-        .get("smart-water/api/devicelist", null)
+        .get("app/api/getDevicesList", null)
         .then(
         function(data, response) {
           console.log(data);

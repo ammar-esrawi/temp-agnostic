@@ -13,6 +13,7 @@ myApp.constant("constants", {
    	  }
     }
   },
+  mapDefaultCenter:"-26.9491,-71.7117",
   sourcesLabels: {
     "simulator": "Meshlium Waspmote"
   },
