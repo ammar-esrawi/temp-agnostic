@@ -1,2 +1,0 @@
-var themeloader = require("app/api/themeloader");
-return themeloader.serveTheme("app/view/html/index.html", {"theme":"assettracking", "style": true})

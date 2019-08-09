@@ -1,3 +1,41 @@
+   myApp.controller('myAppCtrl', function($scope,$rootScope, constants, $sce,httpClient, headerItemsJson, menuItemsJson,menuItemsAdminJson) {
+    	var vm = this;  
+       vm.scope = $scope;
+       if(constants.appTitle){
+         vm.appTitle = constants.appTitle;
+       headerItemsJson.appname=constants.appTitle;
+       }
+        
+        vm.user = {"login": JSON.parse($.cookie('user')).name};
+    		vm.menuItems = menuItemsAdminJson;
+       
+       
+       	vm.headerItems = headerItemsJson;
+    		console.log(vm.user);
+    
+   vm.init = function() {
+        httpClient
+        .get("app/api/login/userGroups", null)
+        .then(
+        function(data, response) {
+          vm.userGroups = data;
+          vm.isAdmin=vm.userGroups.includes("admin");
+          $rootScope.isAdmin=vm.isAdmin;
+          
+          if(vm.isAdmin){
+            vm.user.login=vm.user.login+"(Admin)";
+            vm.menuItems = menuItemsAdminJson;
+          }
+        },
+        function(err) {
+            console.log('ERROR');
+        });
+    
+   }
+       
+     });	
+
+
 myApp.controller('mapCtrl', function($location, constants, $routeParams) {
     var vm = this;
     vm.deviceKey = null;

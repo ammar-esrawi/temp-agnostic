@@ -42,7 +42,7 @@ var routingItems = {
   "params": [
     {"route": "map", "template": "/app/view/html/views/map/map.html", "controller": "mapCtrl as vm"},
     {"route": "map/deviceId/:deviceId*", "template": "/app/view/html/views/map/map.html", "controller": "mapCtrl as vm"},
-    {"route": "dashboard/deviceId/:deviceId*", "template": "/app/view/html/views/dashboard/dashboard.html","controller": "dashboardCtrl as vm"},
+    {"route": "dashboard/deviceId/:deviceId*", "template": "/smart-water/view/views/dashboard/dashboard.html","controller": "swDashboardCtrl as vm"},
     {"route": "alerts/deviceId/:deviceId*", "template": "/app/view/html/views/logs/alerts.html","controller": "alertsCtrl as vm"},
     {"route": "alerts", "template": "/app/view/html/views/alerts/alerts.html" },
     {"route": "notifications", "template": "/app/view/html/views/notifications/notifications.html", controller: "notificationCtrl as vm"},
