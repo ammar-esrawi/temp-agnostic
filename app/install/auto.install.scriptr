@@ -1,0 +1,105 @@
+var responseObject = {};
+var channels = require("channel");
+var devices = require("device");
+var groups = require("group");
+
+/** Create a group editor that allows its users to access the scriptr ide plugins, ex: decision table **/
+var editorGroup = "editor";
+var step2 = groups.create(editorGroup);
+responseObject["groupCreation_"+editorGroup] = JSON.stringify(step2);
+
+
+
+/** Create Anonymous publish channel used to receive requests from browser **/
+var channelsList =  ["requestChannel", "responseChannel"];
+var options = {
+  "subscribeACL": "anonymous",
+  "publishACL": "anonymous"
+}
+
+channelsList.forEach(function(channel) {
+   var step5 = channels.create(channel, options);
+   responseObject["channelCreation_"+channel] = JSON.stringify(step5)
+});
+
+
+var defaultDevice = { //This device is used by to authenticate a single device
+    "id":"myDevice",
+    "password" : "demo",
+    "name" : "myDevice",
+    "type": "hardware",
+    "lat": 45.6307159, 
+    "long": -73.9373892,
+    "address": "Little Feet Meadow",
+    "city": "Montreal",
+    "country": "Canada",
+    "locationType": "Ranch",
+    "locationSection": "Neck Collar",
+    "physicalEnvironment": "Cow",
+    "sensor": "mySensorType",
+    "source": "simulator"
+}
+
+var devicesList = [
+    {//Device used to login to iot app
+        "id":"demo",
+        "password" : "demo",
+        "name" : "demo",
+        "groups": ["editor"]
+    },
+    { //This device is used by to authenticate the messaging of group of devices to scriptr example, used for the authentication with the mqtt bridge, or to add the messaging queue
+        "id":"myDmpBroker",
+        "password" : "demo",
+        "name" : "myDmpBroker"
+    },
+    defaultDevice
+];
+
+devicesList.forEach(function(params) {
+   	var step6= devices.save(params);
+    responseObject["deviceCreation_"+params.id] = JSON.stringify(step6);
+
+    var step7= devices.generateToken(params.id);
+    responseObject["deviceToken_"+params.id] = JSON.stringify(step7);
+});
+
+
+//Create the channel used by the mqtt bridge between scriptr and ibm bluemix
+var channelsList =  ["deviceDigest"];
+var params = {"name" : "deviceDigest", "subscribeACL": ["authenticated"],"publishACL":  ["authenticated"]};
+var step6 = apsdb.callApi("SaveChannel", params , null )
+responseObject["channelCreation_"+params.name] = JSON.stringify(step6);
+
+//Setup the mqtt connection instance (ibm free tier)
+var params = {
+    'name': 'deviceDigestEndpoint',
+    'protocol': 'mqtt',
+    'url':'quickstart.messaging.internetofthings.ibmcloud.com',
+    'topic': 'iot-2/type/sensors/id/device'+request.account.accountKey+'/evt/+/fmt/json',
+    'clientId': 'a:quickstart:scriptr-'+request.account.accountKey
+    
+}
+var response = apsdb.callApi("SaveExternalEndpointConfiguration", params, null);
+responseObject["createMqttExternalEndPoint"] = JSON.stringify(response);
+
+
+//Link the bridge to the channel for publishing messages
+//The free trial if not activated yet can be activated by going to channels and clicking on bridges under any channel and clicking on free trial button
+var params = {
+    "channel": "deviceDigest",
+    "externalEndpointConfiguration":"deviceDigestEndpoint",
+    "auth_token": devices.get("myDmpBroker").result["auth_token"]
+}
+var response = apsdb.callApi("AddBridge", params, null);
+responseObject["AddBridge"] = JSON.stringify(response);
+
+var pubsub = require("pubsub");
+var topic = pubsub.getInstance("deviceDigest");
+var response = topic.subscribe("app/api/subscription/subscriber", "script");
+responseObject["subscribeScriptToChannel"] = JSON.stringify(response);
+
+//Set a scheduler to cleanup events
+var scheduleCleanup = schedule("app/cleanup/devicesEvents", "5 * * * ?");
+responseObject["scheduleCleanup"] = JSON.stringify(scheduleCleanup);
+
+return responseObject;
