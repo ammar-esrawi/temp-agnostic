@@ -217,6 +217,7 @@ myApp.controller('dashboardCtrl', function($scope,  wsClient, httpClient, $route
 
 
     vm.consumeData = function(data) {
+      
         if(data.latest) {
             data = data.latest
             vm.latest =  data;
@@ -225,6 +226,7 @@ myApp.controller('dashboardCtrl', function($scope,  wsClient, httpClient, $route
             vm.selectedDevice = data[vm.deviceKey][0][0];
             vm.latest = vm.selectedDevice
 		 }
+      console.log(vm.selectedDevice)
     }
 
     vm.historicalFormatData = function(data){
