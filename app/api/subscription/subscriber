@@ -21,6 +21,8 @@ log.info("[app/api/subscription/subscriber] received the following payload \n" +
 var body = request.body ? request.body : ((request.rawBody) ? request.rawBody : request.parameters);
 var inputData = typeof(body) == "string" ? JSON.parse(body) : body;
 
+//MFE: in case renzo cannot change payload format to be usabe in jsonmapper as it, call the adaptor under config, this should be in the prescript of the transformation
+
 _.some(config.availableDeviceTypes, function(entry) {
     deviceConfig = entry;
     var deviceMapper = require(entry.mapper);

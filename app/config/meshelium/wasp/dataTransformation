@@ -1,6 +1,6 @@
 
 //Define mappings between input keys and output keys
-var mappings = {"id":{"key":"id_wasp","value":"function(value){return value;}"},"battery":{"key":"BAT","value":"function(value){return value;}"},"timestamp":{"key":"datetime","value":"function(value){return value;}"}};    
+var mappings = {"id":{"key":"id_wasp","value":"function(value){return value;}"},"battery":{"key":"BAT","value":"function(value){return value;}"},"temperature":{"key":"WT","value":"function(value){return value;}"},"water_conductivity":{"key":"COND","value":"function(value){return value;}"},"oxidation _reduction_potential":{"key":"ORP","value":"function(value){return value;}"},"dissolved_oxygen":{"key":"DO","value":"function(value){return value;}"},"ph":{"key":"PH","value":"function(value){return value;}"},"timestamp":{"key":"datetime","value":"function(value){return value;}"}};    
 
 var mapIt = function(params) {
     var values = JSON.flatten(params);

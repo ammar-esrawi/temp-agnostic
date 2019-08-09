@@ -19,7 +19,7 @@ myApp.constant("constants", {
   },
   infoWindows: {
     "icons": {
-         "id": '<img  src="//s3.amazonaws.com/scriptr-cdn/multitech/images/multitech-id.png">',
+         "id": '<img  src="https://i.ibb.co/X2qKzzc/logo-mini-30.png">',
          "temperature": '<img alt="Embedded Image"  width="17" height="30" src="//s3.amazonaws.com/scriptr-cdn/common/images/temperature.png" />',
          "humidity": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/humidity.png" />',
          "pressure": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/pressure.png" />',

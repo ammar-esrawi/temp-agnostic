@@ -72,14 +72,16 @@ function buildDeviceEventDocument(entry, data) {
     delete entry.versionNumber;
     delete entry.latest;
     delete entry.creator;
+  
+    //MFE: Go get previous device event data and mix it with payload and the entry
 
     entry["event_type"] = ["event"];
     entry["key"] = event_prefix + entry.id + "_" + new Date().getTime();
- 	entry["meta.types"] = {
-        "temperature": "numeric",
-        "humidity": "numeric",
-        "pressure": "numeric"
-   	}
+    entry["meta.types"] = {
+          "temperature": "numeric",
+          "humidity": "numeric",
+          "pressure": "numeric"
+      }
     return entry;
 }
 
