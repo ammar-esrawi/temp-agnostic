@@ -2,19 +2,19 @@ myApp.constant("constants", {
  appTitle: "CxC Smart Water",
  logo: "https://i.ibb.co/TmfS643/logo-450.png",
  login: {
-    "background": '//s3.amazonaws.com/scriptr-cdn/multitech/images/city-bg.jpeg',
-    "smallImage": '<img src="//s3.amazonaws.com/scriptr-cdn/multitech/images/multitech-conduit.png">'
+    "background": '',
+    "smallImage": '<img src="https://i.ibb.co/TmfS643/logo-450.png" style="width: 366px;" class="pd-40">'
 
   },
    sources : {
     "simulator": { 
    	  "mapMarker": {
-          url: "//s3.amazonaws.com/scriptr-cdn/multitech/images/map-pin.png"
+          url: "https://i.ibb.co/Jzcnn6F/map-pin.png"
    	  }
     }
   },
   sourcesLabels: {
-    "simulator": "Multitech Conduit"
+    "simulator": "Meshlium Waspmote"
   },
   infoWindows: {
     "icons": {

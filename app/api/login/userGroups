@@ -1,0 +1,18 @@
+var device = require("device");
+
+var getDevice = device.get(request.user.id);
+
+if(getDevice.metadata.status == "success"){
+    var authToken = getDevice.result["auth_token"];
+    var userGroups = getDevice.result["groups"];
+      
+    if (userGroups == null) {
+        userGroups = ["user"];
+    } else if (typeof userGroups == 'string') {
+        userGroups = [ userGroups ];
+    }
+    
+    
+	return userGroups;
+}
+return [];

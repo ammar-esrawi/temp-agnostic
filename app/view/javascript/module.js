@@ -1,6 +1,8 @@
 var myApp = angular.module('myApp', ["Layout",  "WsClient", "HttpClient", "Map", "Chart", "Grid", "Gauge", "ngTagsInput", "gridster", "Button", "Accelerometer"]);
 myApp
     .constant("menuItemsJson",  menuItems)
+		.constant("menuItemsAdminJson",  menuItemsAdmin)
+		.constant("adminRoutesJson",adminRoutes)
     .constant("headerItemsJson", headerItems)
     .constant("routingJson", routingItems)
     .config(httpsConfig)
@@ -15,4 +17,4 @@ myApp
             }).otherwise("/map")
     }
    // $routeProvider.otherwise("/map")
-}); 
+		}); 
