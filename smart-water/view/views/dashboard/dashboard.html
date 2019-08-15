@@ -248,7 +248,49 @@
                         </div>
                     </div>
                 </li>
-                
+                <li class="myItem" gridster-item='{sizeX: 3, sizeY: 1, col: 1, row: 1}' ng-if="vm.selectedDevice.ph">
+                        <div class="box">
+                            <div class="box-content">
+                                <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="PH" class="box-label">PH</div>
+                                <div  style="height: calc(100% - 30px)" > <scriptr-chart
+                                                                                         type='line'
+                                                                                         boxLabel='PH'
+                                                                                         xkey='creationDate'
+                                                                                         ykeys='["ph"]'
+                                                                                         labels='["PH"]'
+                                                                                         colors='["#FCC717","#38B9D6", "#1DBC68"]'
+                                                                                         transport='wss'
+                                                                                         msg-tag='{{vm.tag}}'
+                                                                                         api-params='vm.params'                                            																   api='app/api/getDeviceHistory'
+                                                                                         grid-text-family='Source Sans Pro'
+                                                                                         line-width='3'
+                                                                                         point-size='4'
+                                                                                         point-stroke-colors='["#fff"]'
+                                                                                         ymax='auto'
+                                                                                         ymin='auto 0'
+                                                                                         smooth='true'
+                                                                                         hide-hover='auto'
+                                                                                         parse-time='true'
+                                                                                         xlabels='auto'
+                                                                                         xlabel-angle='0'
+                                                                                         goal-stroke-width='1'
+                                                                                         goal-line-colors='["#666633","#999966","#cc6666","#663333"]'
+                                                                                         event-stroke-width='1'
+                                                                                         event-line-colors='["#005a04","#ccffbb","#3a5f0b","#005502"]'
+                                                                                         axes='true'
+                                                                                         grid='true'
+                                                                                         grid-text-color='#888'
+                                                                                         grid-text-size='12'
+                                                                                         grid-text-weight='normal'
+                                                                                         http-method='GET'
+                                                                                         point-fill-colors='[null]'
+                                                                                         goals='[null]'
+                                                                                         events='[null]'
+                                                                                         on-format-data='vm.historicalFormatData'
+                                                                                         ></scriptr-chart> </div>
+                            </div>
+                        </div>
+                    </li>
                 
                 
                
