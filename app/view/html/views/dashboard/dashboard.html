@@ -15,7 +15,100 @@
         </div>
         <div gridster="vm.gridsterOptions" ng-if="vm.deviceKey != null">
             <ul>
-                <li class="myItem" gridster-item='{sizeX: 1, sizeY: 1, col: 0, row: 0 }' ng-if="vm.latest.temperature">
+
+                    <li class="myItem" gridster-item='{sizeX: 1, sizeY: 1, col:0, row:0 }' ng-if="vm.latest.battery">
+                            <div class="box">
+                                <div class="box-content">
+                                    <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Battery" class="box-label">Battery</div>
+                                    <div  style="height: calc(100% - 30px)" > <scriptr-gauge
+                                                                                             transport='wss'
+                                                                                             boxLabel='Battery'
+                                                                                             msg-tag='{{vm.tag}}'
+                                                                                             gauge-value='vm.selectedDevice.battery.value'
+                                                                                             value-font-color='rgb(153, 153, 153)'
+                                                                                             min='0'
+                                                                                             max='100'
+                                                                                             hide-min-max='false'
+                                                                                             hide-value='false'
+                                                                                             show-inner-shadow='false'
+                                                                                             custom-sectors='{"percents":"false","ranges":[{}]}'
+                                                                                             shadow-size='5'
+                                                                                             shadow-opacity='0.2'
+                                                                                             start-animation-type='linear'
+                                                                                             refresh-animation-type='linear'
+                                                                                             value-font-family='Source Sans Pro'
+                                                                                             value-min-font-size='12'
+                                                                                             label-min-font-size='12'
+                                                                                             min-label-min-font-size='12'
+                                                                                             max-label-min-font-size='12'
+                                                                                             gauge-width-scale='1'
+                                                                                             shadow-vertical-offset='3'
+                                                                                             level-colors='["#a9d70b","#f9c802","#ff0000"]'
+                                                                                             relative-gauge-size='true'
+                                                                                             no-gradient='false'
+                                                                                             start-animation-time='700'
+                                                                                             refresh-animation-time='700'
+                                                                                             donut='false'
+                                                                                             donut-start-angle='90'
+                                                                                             reverse='false'
+                                                                                             decimals='2'
+                                                                                             format-number='false'
+                                                                                             human-friendly='false'
+                                                                                             human-friendly-decimal='2'
+                                                                                             pointer='false'
+                                                                                             counter='false'
+                                                                                             http-method='GET'
+                                                                                             symbol='{{vm.selectedDevice.battery_unit.value || "%"}}'
+                                                                                             label-font-color='rgb(153, 153, 153)'
+                                                                                             on-format-data='vm.batteryFormatData'
+                                                                                             ></scriptr-gauge> </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="myItem" gridster-item='{sizeX: 3, sizeY: 1, col: 1, row: 0}' ng-if="vm.selectedDevice.battery">
+                                <div class="box">
+                                    <div class="box-content">
+                                        <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Battery" class="box-label">Battery</div>
+                                        <div  style="height: calc(100% - 30px)" > <scriptr-chart
+                                                                                                 type='line'
+                                                                                                 boxLabel='Battery'
+                                                                                                 xkey='creationDate'
+                                                                                                 ykeys='["battery"]'
+                                                                                                 labels='["Battery"]'
+                                                                                                 colors='["#FCC717","#38B9D6", "#1DBC68"]'
+                                                                                                 transport='wss'
+                                                                                                 msg-tag='{{vm.tag}}'
+                                                                                                 api-params='vm.params'                                            																   api='app/api/getDeviceHistory'
+                                                                                                 grid-text-family='Source Sans Pro'
+                                                                                                 line-width='3'
+                                                                                                 point-size='4'
+                                                                                                 point-stroke-colors='["#fff"]'
+                                                                                                 ymax='auto'
+                                                                                                 ymin='auto 0'
+                                                                                                 smooth='true'
+                                                                                                 hide-hover='auto'
+                                                                                                 parse-time='true'
+                                                                                                 xlabels='auto'
+                                                                                                 xlabel-angle='0'
+                                                                                                 goal-stroke-width='1'
+                                                                                                 goal-line-colors='["#666633","#999966","#cc6666","#663333"]'
+                                                                                                 event-stroke-width='1'
+                                                                                                 event-line-colors='["#005a04","#ccffbb","#3a5f0b","#005502"]'
+                                                                                                 axes='true'
+                                                                                                 grid='true'
+                                                                                                 grid-text-color='#888'
+                                                                                                 grid-text-size='12'
+                                                                                                 grid-text-weight='normal'
+                                                                                                 http-method='GET'
+                                                                                                 point-fill-colors='[null]'
+                                                                                                 goals='[null]'
+                                                                                                 events='[null]'
+                                                                                                 on-format-data='vm.historicalFormatData'
+                                                                                                 ></scriptr-chart> </div>
+                                    </div>
+                                </div>
+                            </li>
+                <li class="myItem" gridster-item='{sizeX: 1, sizeY: 1, col: 0, row: 1 }' ng-if="vm.latest.temperature">
                     <div class="box">
                         <div class="box-content">
                             <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Temperature" class="box-label" >Temperature</div>
@@ -64,113 +157,16 @@
                         </div>
                     </div>
                 </li>
-                <li class="myItem" gridster-item='{sizeX: 1, sizeY: 1, col: 0, row: 1 }' ng-if="vm.latest.humidity">
+                <li class="myItem" gridster-item='{sizeX: 3, sizeY: 1, col: 1, row: 1}' ng-if="vm.selectedDevice.temperature">
                     <div class="box">
                         <div class="box-content">
-                            <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Humidity Level" class="box-label">Humidity Level</div>
-                            <div  style="height: calc(100% - 30px)" > <scriptr-gauge
-                                                                                     transport='wss'
-                                                                                     boxLabel='Humidity Level'
-                                                                                     msg-tag='{{vm.tag}}'
-                                                                                     gauge-value='vm.selectedDevice.humidity.value'
-                                                                                     value-font-color='#999'
-                                                                                     min='0'
-                                                                                     max='100'
-                                                                                     hide-min-max='false'
-                                                                                     hide-value='false'
-                                                                                     show-inner-shadow='false'
-                                                                                     custom-sectors='{"percents":"false","ranges":[{}]}'
-                                                                                     shadow-size='5'
-                                                                                     shadow-opacity='0.2'
-                                                                                     start-animation-type='linear'
-                                                                                     refresh-animation-type='linear'
-                                                                                     value-font-family='Source Sans Pro'
-                                                                                     value-min-font-size='12'
-                                                                                     label-min-font-size='12'
-                                                                                     min-label-min-font-size='12'
-                                                                                     max-label-min-font-size='12'
-                                                                                     gauge-width-scale='1'
-                                                                                     shadow-vertical-offset='3'
-                                                                                     level-colors='["#a9d70b","#f9c802","#ff0000"]'
-                                                                                     relative-gauge-size='true'
-                                                                                     no-gradient='false'
-                                                                                     start-animation-time='700'
-                                                                                     refresh-animation-time='700'
-                                                                                     donut='false'
-                                                                                     donut-start-angle='90'
-                                                                                     reverse='false'
-                                                                                     decimals='2'
-                                                                                     format-number='false'
-                                                                                     human-friendly='false'
-                                                                                     human-friendly-decimal='2'
-                                                                                     pointer='false'
-                                                                                     counter='false'
-                                                                                     http-method='GET'
-                                                                                     symbol='{{vm.selectedDevice.humidity_unit.value || "%"}}'
-                                                                                     on-format-data='vm.humidityFormatData'
-                                                                                     ></scriptr-gauge> </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="myItem" gridster-item='{sizeX: 1, sizeY: 1, col:0, row:2 }' ng-if="vm.latest.pressure">
-                    <div class="box">
-                        <div class="box-content">
-                            <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Atmospheric Pressure" class="box-label">Atmospheric Pressure</div>
-                            <div  style="height: calc(100% - 30px)" > <scriptr-gauge
-                                                                                     transport='wss'
-                                                                                     boxLabel='Atmospheric Pressure'
-                                                                                     msg-tag='{{vm.tag}}'
-                                                                                     gauge-value='vm.selectedDevice.pressure.value'
-                                                                                     value-font-color='rgb(153, 153, 153)'
-                                                                                     min='800'
-                                                                                     max='1260'
-                                                                                     hide-min-max='false'
-                                                                                     hide-value='false'
-                                                                                     show-inner-shadow='false'
-                                                                                     custom-sectors='{"percents":"false","ranges":[{}]}'
-                                                                                     shadow-size='5'
-                                                                                     shadow-opacity='0.2'
-                                                                                     start-animation-type='linear'
-                                                                                     refresh-animation-type='linear'
-                                                                                     value-font-family='Source Sans Pro'
-                                                                                     value-min-font-size='12'
-                                                                                     label-min-font-size='12'
-                                                                                     min-label-min-font-size='12'
-                                                                                     max-label-min-font-size='12'
-                                                                                     gauge-width-scale='1'
-                                                                                     shadow-vertical-offset='3'
-                                                                                     level-colors='["#a9d70b","#f9c802","#ff0000"]'
-                                                                                     relative-gauge-size='true'
-                                                                                     no-gradient='false'
-                                                                                     start-animation-time='700'
-                                                                                     refresh-animation-time='700'
-                                                                                     donut='false'
-                                                                                     donut-start-angle='90'
-                                                                                     reverse='false'
-                                                                                     decimals='2'
-                                                                                     format-number='false'
-                                                                                     human-friendly='false'
-                                                                                     human-friendly-decimal='2'
-                                                                                     pointer='false'
-                                                                                     counter='false'
-                                                                                     http-method='GET'
-                                                                                     symbol='{{vm.selectedDevice.pressure_unit.value || "Pa"}}'
-                                                                                     label-font-color='rgb(153, 153, 153)'
-                                                                                     on-format-data='vm.pressureFormatData'
-                                                                                     ></scriptr-gauge> </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="myItem" gridster-item='{sizeX: 3, sizeY: 2, col: 1, row: 0}' ng-if="vm.selectedDevice.temperature">
-                    <div class="box">
-                        <div class="box-content">
-                            <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Humidity / Temperature" class="box-label">Humidity / Temperature</div>
+                            <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Temperature" class="box-label">Temperature</div>
                             <div  style="height: calc(100% - 30px)" > <scriptr-chart
                                                                                      type='line'
-                                                                                     boxLabel='Humidity / Temperature'
+                                                                                     boxLabel='Temperature'
                                                                                      xkey='creationDate'
-                                                                                     ykeys='["humidity", "temperature"]'
-                                                                                     labels='["Humidity", "Temperature"]'
+                                                                                     ykeys='["temperature"]'
+                                                                                     labels='["Temperature"]'
                                                                                      colors='["#FCC717","#38B9D6", "#1DBC68"]'
                                                                                      transport='wss'
                                                                                      msg-tag='{{vm.tag}}'
@@ -204,68 +200,24 @@
                         </div>
                     </div>
                 </li>
-                <li class="myItem" gridster-item='{sizeX: 3, sizeY: 1, col:1, row: 2}' ng-if="vm.selectedDevice.temperature">
+                <li class="myItem" gridster-item='{sizeX: 1, sizeY: 1, col: 0, row: 2 }' ng-if="vm.latest.ph">
                     <div class="box">
                         <div class="box-content">
-                            <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Pressure" class="box-label">Pressure</div>
-                            <div  style="height: calc(100% - 30px)" > <scriptr-chart
-                                                                                     type='line'
-                                                                                     boxLabel='Pressure'
-                                                                                     xkey='creationDate'
-                                                                                     ykeys='["pressure"]'
-                                                                                     labels='["Pressure"]'
-                                                                                     colors='["#FCC717","#38B9D6", "#1DBC68"]'
-                                                                                     transport='wss'
-                                                                                     msg-tag='{{vm.tag}}'
-                                                                                     api-params='vm.params'
-                                                                                     grid-text-family='Source Sans Pro'
-                                                                                     line-width='3'
-                                                                                     point-size='4'
-                                                                                     point-stroke-colors='["#fff"]'
-                                                                                     ymax='auto'
-                                                                                     ymin='auto 0'
-                                                                                     smooth='true'
-                                                                                     hide-hover='auto'
-                                                                                     parse-time='true'
-                                                                                     xlabels='auto'
-                                                                                     xlabel-angle='0'
-                                                                                     goal-stroke-width='1'
-                                                                                     goal-line-colors='["#666633","#999966","#cc6666","#663333"]'
-                                                                                     event-stroke-width='1'
-                                                                                     event-line-colors='["#005a04","#ccffbb","#3a5f0b","#005502"]'
-                                                                                     axes='true'
-                                                                                     grid='true'
-                                                                                     grid-text-color='#888'
-                                                                                     grid-text-size='12'
-                                                                                     grid-text-weight='normal'
-                                                                                     http-method='GET'
-                                                                                     point-fill-colors='[null]'
-                                                                                     goals='[null]'
-                                                                                     events='[null]'
-                                                                                     on-format-data='vm.historicalFormatData'
-                                                                                     ></scriptr-chart> </div>
-                        </div>
-                    </div>
-                </li>
-               <li class="myItem" gridster-item='{sizeX: 1, sizeY: 1, col: 0, row: 3 }' ng-if="vm.latest.proximity">
-                    <div class="box">
-                        <div class="box-content">
-                            <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Proximity" class="box-label">Proximity</div>
+                            <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="ph Level" class="box-label">ph Level</div>
                             <div  style="height: calc(100% - 30px)" > <scriptr-gauge
                                                                                      transport='wss'
-                                                                                     boxLabel='Proximity'
+                                                                                     boxLabel='ph Level'
                                                                                      msg-tag='{{vm.tag}}'
-                                                                                     gauge-value='vm.selectedDevice.proximity.value'
-                                                                                     api-params='vm.params'                      
+                                                                                     gauge-value='vm.selectedDevice.ph.value'
                                                                                      value-font-color='#999'
                                                                                      min='0'
-                                                                                     max='10000'
+                                                                                     max='100'
                                                                                      hide-min-max='false'
                                                                                      hide-value='false'
                                                                                      show-inner-shadow='false'
                                                                                      custom-sectors='{"percents":"false","ranges":[{}]}'
                                                                                      shadow-size='5'
-                                                                                     shadow-opacity='0.8'
+                                                                                     shadow-opacity='0.2'
                                                                                      start-animation-type='linear'
                                                                                      refresh-animation-type='linear'
                                                                                      value-font-family='Source Sans Pro'
@@ -275,7 +227,7 @@
                                                                                      max-label-min-font-size='12'
                                                                                      gauge-width-scale='1'
                                                                                      shadow-vertical-offset='3'
-                                                                                     level-colors='["#1e79da","#fce94f","#fcaf3e","#d93b3b"]'
+                                                                                     level-colors='["#a9d70b","#f9c802","#ff0000"]'
                                                                                      relative-gauge-size='true'
                                                                                      no-gradient='false'
                                                                                      start-animation-time='700'
@@ -284,205 +236,22 @@
                                                                                      donut-start-angle='90'
                                                                                      reverse='false'
                                                                                      decimals='2'
-                                                                                     format-number='true'
+                                                                                     format-number='false'
                                                                                      human-friendly='false'
                                                                                      human-friendly-decimal='2'
                                                                                      pointer='false'
                                                                                      counter='false'
                                                                                      http-method='GET'
-                                                                                     symbol='mm'
-                                                                                     on-format-data='vm.proximityFormatData'
+                                                                                     symbol='{{vm.selectedDevice.ph_unit.value || ""}}'
+                                                                                     on-format-data='vm.humidityFormatData'
                                                                                      ></scriptr-gauge> </div>
                         </div>
                     </div>
                 </li>
-                <li class="myItem" gridster-item='{sizeX: 3, sizeY: 1, col: 1, row: 3}' ng-if="vm.selectedDevice.proximity">
-                    <div class="box">
-                        <div class="box-content">
-                            <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Proximity Data" class="box-label">Proximity Data</div>
-                            <div  style="height: calc(100% - 30px)" > <scriptr-chart
-                                                                                     type='line'
-                                                                                     boxLabel='Proximity Data'
-                                                                                     xkey='creationDate'
-                                                                                     ykeys='["proximity"]'
-                                                                                     labels='["Proximity"]'
-                                                                                     colors='["#FCC717","#38B9D6", "#1DBC68"]'
-                                                                                     transport='wss'
-                                                                                     msg-tag='{{vm.tag}}'
-                                                                                     api-params='vm.params'                       
-                                                                                     grid-text-family='Source Sans Pro'
-                                                                                     line-width='3'
-                                                                                     point-size='4'
-                                                                                     point-stroke-colors='["#fff"]'
-                                                                                     ymax='auto'
-                                                                                     ymin='auto 0'
-                                                                                     smooth='true'
-                                                                                     hide-hover='auto'
-                                                                                     parse-time='true'
-                                                                                     xlabels='auto'
-                                                                                     xlabel-angle='0'
-                                                                                     goal-stroke-width='1'
-                                                                                     goal-line-colors='["#666633","#999966","#cc6666","#663333"]'
-                                                                                     event-stroke-width='1'
-                                                                                     event-line-colors='["#005a04","#ccffbb","#3a5f0b","#005502"]'
-                                                                                     axes='true'
-                                                                                     grid='true'
-                                                                                     grid-text-color='#888'
-                                                                                     grid-text-size='12'
-                                                                                     grid-text-weight='normal'
-                                                                                     http-method='GET'
-                                                                                     point-fill-colors='[null]'
-                                                                                     goals='[null]'
-                                                                                     events='[null]'
-                                                                                     on-format-data='vm.historicalFormatData'
-                                                                                     ></scriptr-chart> </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="myItem" gridster-item='{sizeX: 2, sizeY: 2, col: 0 , row: 5 }' ng-if="vm.latest.acc_x">
-                    <div class="box">
-                        <div class="box-content">
-                          <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Acceleration" class="box-label">Acceleration</div>
-                          <div  style="height: calc(100% - 30px)" >  <scriptr-accelerometer
-										transport='wss'
-										msg-tag='{{vm.tag}}'
-										http-method='GET'
-										data='{x:20, y:1000,z:30}'
-                                        api-params='vm.params'             		
-                                  		on-format-data='vm.accelerometerFormatData'
-                           ></scriptr-accelerometer> </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="myItem" gridster-item='{sizeX: 2, sizeY: 2, col: 2, row: 5}' ng-if="vm.selectedDevice.acc_x">
-                    <div class="box">
-                        <div class="box-content">
-                            <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Accelerometer Data" class="box-label">Accelerometer Data</div>
-                            <div  style="height: calc(100% - 30px)" > <scriptr-chart
-                                                                                     type='line'
-                                                                                     boxLabel='Accelerometer Data'
-                                                                                     xkey='creationDate'
-                                                                                     ykeys='["acc_x", "acc_y", "acc_z"]'
-                                                                                     labels='["X", "Y", "Z"]'
-                                                                                     colors='["#FCC717","#38B9D6", "#1DBC68"]'
-                                                                                     transport='wss'
-                                                                                     msg-tag='{{vm.tag}}'
-                                                                                     api-params='vm.params'                       
-                                                                                     grid-text-family='Source Sans Pro'
-                                                                                     line-width='3'
-                                                                                     point-size='4'
-                                                                                     point-stroke-colors='["#fff"]'
-                                                                                     ymax='auto'
-                                                                                     ymin='auto 0'
-                                                                                     smooth='true'
-                                                                                     hide-hover='auto'
-                                                                                     parse-time='true'
-                                                                                     xlabels='auto'
-                                                                                     xlabel-angle='0'
-                                                                                     goal-stroke-width='1'
-                                                                                     goal-line-colors='["#666633","#999966","#cc6666","#663333"]'
-                                                                                     event-stroke-width='1'
-                                                                                     event-line-colors='["#005a04","#ccffbb","#3a5f0b","#005502"]'
-                                                                                     axes='true'
-                                                                                     grid='true'
-                                                                                     grid-text-color='#888'
-                                                                                     grid-text-size='12'
-                                                                                     grid-text-weight='normal'
-                                                                                     http-method='GET'
-                                                                                     point-fill-colors='[null]'
-                                                                                     goals='[null]'
-                                                                                     events='[null]'
-                                                                                     on-format-data='vm.historicalFormatData'
-                                                                                     ></scriptr-chart> </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="myItem" gridster-item='{sizeX: 4, sizeY: 2, col: 0, row: 7}' ng-if="vm.latest.mag_x">
-                    <div class="box">
-                        <div class="box-content">
-                            <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Magnetometer Data" class="box-label">Magnetometer Data</div>
-                            <div  style="height: calc(100% - 30px)" > <scriptr-chart
-                                                                                     type='line'
-                                                                                     boxLabel='Magnetometer Data'
-                                                                                     xkey='creationDate'
-                                                                                     ykeys='["mag_x", "mag_y", "mag_z"]'
-                                                                                     labels='["X", "Y", "Z"]'
-                                                                                     colors='["#FCC717","#38B9D6", "#1DBC68"]'
-                                                                                     transport='wss'
-                                                                                     msg-tag='{{vm.tag}}'
-                                                                                     api-params='vm.params'                       
-                                                                                     grid-text-family='Source Sans Pro'
-                                                                                     line-width='3'
-                                                                                     point-size='4'
-                                                                                     point-stroke-colors='["#fff"]'
-                                                                                     ymax='auto'
-                                                                                     ymin='auto 0'
-                                                                                     smooth='true'
-                                                                                     hide-hover='auto'
-                                                                                     parse-time='true'
-                                                                                     xlabels='auto'
-                                                                                     xlabel-angle='0'
-                                                                                     goal-stroke-width='1'
-                                                                                     goal-line-colors='["#666633","#999966","#cc6666","#663333"]'
-                                                                                     event-stroke-width='1'
-                                                                                     event-line-colors='["#005a04","#ccffbb","#3a5f0b","#005502"]'
-                                                                                     axes='true'
-                                                                                     grid='true'
-                                                                                     grid-text-color='#888'
-                                                                                     grid-text-size='12'
-                                                                                     grid-text-weight='normal'
-                                                                                     http-method='GET'
-                                                                                     point-fill-colors='[null]'
-                                                                                     goals='[null]'
-                                                                                     events='[null]'
-                                                                                     on-format-data='vm.historicalFormatData'
-                                                                                     ></scriptr-chart> </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="myItem" gridster-item='{sizeX: 4, sizeY: 2, col: 0, row: 9}' ng-if="vm.selectedDevice.gyr_x">
-                    <div class="box">
-                        <div class="box-content">
-                            <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Gyroscope Data" class="box-label">Gyroscope Data</div>
-                            <div  style="height: calc(100% - 30px)" > <scriptr-chart
-                                                                                     type='line'
-                                                                                     boxLabel='Gyroscope Charting'
-                                                                                     xkey='creationDate'
-                                                                                     ykeys='["gyr_x", "gyr_y", "gyr_z"]'
-                                                                                     labels='["X", "Y", "Z"]'
-                                                                                     colors='["#FCC717","#38B9D6", "#1DBC68"]'
-                                                                                     transport='wss'
-                                                                                     msg-tag='{{vm.tag}}'
-                                                                                     api-params='vm.params'                       
-                                                                                     grid-text-family='Source Sans Pro'
-                                                                                     line-width='3'
-                                                                                     point-size='4'
-                                                                                     point-stroke-colors='["#fff"]'
-                                                                                     ymax='auto'
-                                                                                     ymin='auto 0'
-                                                                                     smooth='true'
-                                                                                     hide-hover='auto'
-                                                                                     parse-time='true'
-                                                                                     xlabels='auto'
-                                                                                     xlabel-angle='0'
-                                                                                     goal-stroke-width='1'
-                                                                                     goal-line-colors='["#666633","#999966","#cc6666","#663333"]'
-                                                                                     event-stroke-width='1'
-                                                                                     event-line-colors='["#005a04","#ccffbb","#3a5f0b","#005502"]'
-                                                                                     axes='true'
-                                                                                     grid='true'
-                                                                                     grid-text-color='#888'
-                                                                                     grid-text-size='12'
-                                                                                     grid-text-weight='normal'
-                                                                                     http-method='GET'
-                                                                                     point-fill-colors='[null]'
-                                                                                     goals='[null]'
-                                                                                     events='[null]'
-                                                                                     on-format-data='vm.historicalFormatData'
-                                                                                     ></scriptr-chart> </div>
-                        </div>
-                    </div>
-                </li>
+                
+                
+                
+               
             </ul>
         </div>
     </div>
