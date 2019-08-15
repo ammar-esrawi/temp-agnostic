@@ -25,11 +25,14 @@ for(key in le){
 if(typeof pl != "object") {
   return[];
 } else { 
-	  if((pl != null && pl["temperature"] != undefined && pl["temperature"] >8) && (pl != null && pl["_le_temperature"] != undefined && pl["_le_temperature"] <8)){
+	  if((pl != null && pl["temperature"] != undefined && pl["temperature"] >=30) && (pl != null && pl["_le_temperature"] != undefined && pl["_le_temperature"] <30)){
        decision.push({ "sendEmail": "HIGH_TEMPERATURE","isAlert": "true" });
 	} 
-	  if((pl != null && pl["temperature"] != undefined && pl["temperature"] <3) && (pl != null && pl["_le_temperature"] != undefined && pl["_le_temperature"] >3)){
-       decision.push({ "sendEmail": "LOW_TEMPERATURE","isAlert": "true" });
+	  if((pl != null && pl["temperature"] != undefined && pl["temperature"] >0) && (pl != null && pl["_le_temperature"] != undefined && pl["_le_temperature"] <=0)){
+       decision.push({ "isAlert": "true","gms": "R140" });
+	} 
+	  if((pl != null && pl["temperature"] != undefined && pl["temperature"] <=0) && (pl != null && pl["_le_temperature"] != undefined && pl["_le_temperature"] >0)){
+       decision.push({ "isAlert": "true","gms": "E140" });
 	} 
 }
 //RULES EVALUATION END
