@@ -1,5 +1,6 @@
 var _= require("modules/underscore/underscore.js")._;
 var emailAlert = require("app/entities/actions/emailOnAlert");
+var gmsAlert = require("app/entities/actions/gmsOnAlert");
 var utils = require("app/entities/utils");
 var config = require("app/config/config");
 
@@ -18,6 +19,7 @@ function evaluateDevice(entry) {
             log.info("[app/entities/deviceevaluator] Actions processing for event "+JSON.stringify(decisions));
             for(var i = 0; decisions && i < decisions.length; i++){
                 emailAlert.execute(null, entry, decisions[i].sendEmail);
+              	gmsAlert.execute( entry, decisions[i].gms);
                 if(decisions[i].isAlert == "true"){
                     recordAsAlert = true; 
                     alertType.push(decisions[i].sendEmail);

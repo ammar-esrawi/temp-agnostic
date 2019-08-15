@@ -1,0 +1,34 @@
+var config = require("app/config/config");
+var _ = require("modules/underscore/underscore.js")._;
+var gmsModule = require('gms/GMS');
+
+var log = require("log");
+log.setLevel("INFO");
+
+function execute( event, signal){
+  
+  var gms=new gmsModule.GMS();
+var cnMngr=gms.getConnectorManager();
+var myConnector=cnMngr.getConnector();
+
+var url="DUMMY";//TODO
+var data={
+    
+    "signalcode": signal,  
+    "url": url,
+};
+
+try{
+    
+    var result= myConnector.send(
+        data
+    );
+  	log.info("[app/entities/actions/gmsOnAlert] returned from gms: "+JSON.stringify(xmlToJson(result)));
+  
+  	//return xmlToJson(result);
+}catch(exception){
+  log.info("[app/entities/actions/gmsOnAlert] error: "+exception);
+    //return exception;
+}
+  
+}
