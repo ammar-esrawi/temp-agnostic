@@ -14,24 +14,22 @@ function execute(pl) {
 var decision = [];
 
 //PRESCRIPT START
-
+var deviceManager = require("app/entities/deviceManager");
+var le=deviceManager.getLatestDeviceEntry(pl.id);
+for(key in le){
+  pl["_le_"+key]=le[key];//le stands for latest entry
+}
 //PRESCRIPT END
 
 //RULES EVALUATION START
 if(typeof pl != "object") {
   return[];
 } else { 
-	  if((pl != null && pl["temperature"] != undefined && pl["temperature"] >8) && isAny("humidity") && isAny("pressure")){
+	  if((pl != null && pl["temperature"] != undefined && pl["temperature"] >8) && (pl != null && pl["_le_temperature"] != undefined && pl["_le_temperature"] <8)){
        decision.push({ "sendEmail": "HIGH_TEMPERATURE","isAlert": "true" });
 	} 
-	  if(isAny("temperature") && (pl != null && pl["humidity"] != undefined && pl["humidity"] >30) && isAny("pressure")){
-       decision.push({ "sendEmail": "HIGH_HUMIDITY","isAlert": "true" });
-	} 
-	  if((pl != null && pl["temperature"] != undefined && pl["temperature"] <3) && isAny("humidity") && isAny("pressure")){
+	  if((pl != null && pl["temperature"] != undefined && pl["temperature"] <3) && (pl != null && pl["_le_temperature"] != undefined && pl["_le_temperature"] >3)){
        decision.push({ "sendEmail": "LOW_TEMPERATURE","isAlert": "true" });
-	} 
-	  if(isAny("temperature") && (pl != null && pl["humidity"] != undefined && pl["humidity"] <10) && isAny("pressure")){
-       decision.push({ "sendEmail": "LOW_HUMIDITY","isAlert": "true" });
 	} 
 }
 //RULES EVALUATION END
