@@ -22,7 +22,7 @@ function evaluateDevice(entry) {
               	gmsAlert.execute( entry, decisions[i].gms);
                 if(decisions[i].isAlert == "true"){
                     recordAsAlert = true; 
-                    alertType.push(decisions[i].sendEmail);
+                    alertType.push(decisions[i].alertType);
                 }
             }
         }
