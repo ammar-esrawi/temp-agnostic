@@ -23,7 +23,7 @@
           $rootScope.isAdmin=vm.isAdmin;
           
           if(vm.isAdmin){
-            vm.user.login=vm.user.login+"(Admin)";
+            vm.user.login=JSON.parse($.cookie('user')).name+"(Admin)";
             vm.menuItems = menuItemsAdminJson;
           }
         },
@@ -157,6 +157,7 @@ myApp.controller('alertsCtrl', function(httpClient, $routeParams, constants) {
         }
 		
         vm.formatData = function(data){
+          console.log(data)
             if(data){
                 return {documents: data, count: data.length}  
             }
