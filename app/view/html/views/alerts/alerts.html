@@ -1,24 +1,26 @@
-<div>
-    <scriptr-grid columns-definition='[
+<div >
+    <scriptr-grid  columns-definition='[
         {headerName: "Device", field: "id", width: 120},
+                                       
         {headerName: "Alert Type", field: "alert_type", width: 90},
-        {headerName: "Date", field: "creationDate", width: 110},
-        {headerName: "Message", field: "alert_info", width: 200}
+        {headerName: "Date", field: "creationDate", width: 110}
     ]' 
-               api="smart-water/api/alerts" 
-               msg-tag="alert_grid"   
+               api='app/api/searchDeviceAlerts'
                enable-delete-row='false'
                row-model-type='virtual'
+               row-height='40'    
+               grid-height='calc(100vh - 200px)'    
                pagination="true"    
                enable-add-row='false'
                cell-editable='false'
+               suppress-filter="true"    
                enable-client-side-filter='false'
                enable-server-side-filter='true' 
                enable-client-side-sorting='false'
                enable-server-side-sorting='false'
-               suppress-filter="true"
                row-model-selection='multiple'
-               pagination-page-size='15'  
+               pagination-page-size='100'  
+                  on-format-data="vm.formatData"  
                transport='https'>
-      </scriptr-grid>
-</div> 
+    </scriptr-grid>
+</div>
