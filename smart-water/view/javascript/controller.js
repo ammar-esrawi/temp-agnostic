@@ -1,11 +1,11 @@
 
-myApp.controller('swDashboardCtrl', function($scope, $timeout, wsClient, httpClient, headerItemsJson, menuItemsJson, $window, $location, constants, $sce, $routeParams) {
+myApp.controller('swDashboardCtrl', function($scope,  wsClient, httpClient, $routeParams, constants) {
     var vm = this;
-    vm.selectedDeviceId = null;
     vm.icons = constants.infoWindows.icons;
-    
+    vm.deviceKey = null;
     vm.gridsterOptions = {
-        pushing: false,
+        pushing: true,
+		floating: true,
         minRows: 1, // the minimum height of the grid, in rows
         maxRows: 100,
         columns: 4, // the width of the grid, in columns
@@ -17,47 +17,67 @@ myApp.controller('swDashboardCtrl', function($scope, $timeout, wsClient, httpCli
         mobileBreakPoint: 1024, // if the screen is not wider that this, remove the grid layout and stack the items
         minColumns: 1,
         resizable: {
-            enabled: false
+            enabled: true
         },
         draggable: {
-            enabled: false
+            enabled: true
         }
     };
-    
+
     vm.init = function(){
         if($routeParams && $routeParams.deviceId) {
-            vm.selectedDeviceId = $routeParams.deviceId;
-        	vm.params = {"id":  vm.selectedDeviceId }
-        	
-            vm.msgTag = "dashboard_data_" +  vm.selectedDeviceId;
-        
-            
-            wsClient.subscribe(vm.msgTag, vm.consumeData.bind(vm), $scope.$id);  
-            
+            vm.deviceKey = $routeParams.deviceId;
+            vm.params = {"id":  vm.deviceKey }
+            vm.tag = "dashboard_" +  vm.deviceKey;
+            wsClient.subscribe(vm.tag, vm.consumeData.bind(vm), $scope.$id);  
             httpClient.get("app/api/getLatestDevice", vm.params).then(
                 function(data, response) {
-                	vm.consumeData(data)
+                    vm.consumeData(data)
                 },
-            	function(err) {
-                	console.log('ERROR', error);
-           	 });
-         }
-    }
-    
-    vm.consumeData = function(data) {
-        console.log("------>",data)
-        if(data.live) {
-            data = data.live
+                function(err) {
+                    console.log('ERROR', error);
+                });
         }
-        if(data && data[vm.selectedDeviceId] && data[vm.selectedDeviceId][0] && data[vm.selectedDeviceId][0][0])
-        	vm.selectedDevice = data[vm.selectedDeviceId][0][0];
     }
-   
+
+
+    vm.consumeData = function(data) {
+      
+        if(data.latest) {
+            data = data.latest
+            vm.latest =  data;
+        }
+        if(data && data[vm.deviceKey] && data[vm.deviceKey][0] && data[vm.deviceKey][0][0]) {
+            vm.selectedDevice = data[vm.deviceKey][0][0];
+            vm.latest = vm.selectedDevice
+		 }
+      console.log(vm.selectedDevice)
+    }
+
     vm.historicalFormatData = function(data){
         if(data.historical) 
-        	return data.historical;
+            return data.historical;
         else
             return data;
+    }  
+
+    vm.temperatureFormatData = function(data) {
+        return data.latest.temperature;
     }
     
+    vm.pressureFormatData = function(data){
+        return data.latest.pressure;
+    }
+
+    vm.humidityFormatData = function(data){
+        return data.latest.humidity;
+    }
+    
+    vm.proximityFormatData = function(data){
+        return data.latest.proximity;
+    }
+    
+    vm.accelerometerFormatData= function(data){
+        return {"x": data.latest.acc_x, "y": data.latest.acc_y, "z": data.latest.acc_z};
+    }
 });

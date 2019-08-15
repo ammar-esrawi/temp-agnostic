@@ -1,6 +1,6 @@
-<section class="page-inner" ng-controller="dashboardCtrl as vm" ng-init="vm.init();">
+<section class="page-inner" ng-controller="swDashboardCtrl as vm" ng-init="vm.init();">
     <div class="col-xs-12">
-        <div ng-include="'/app/view/html/views/dashboard/summary.html'"></div>
+        <div ng-include="'/smart-water/view/views/dashboard/summary.html'"></div>
         <div ng-if="vm.deviceKey == null" style="
                                                  height: 90px;
                                                  line-height: 90px;
@@ -26,8 +26,8 @@
                                                                                              msg-tag='{{vm.tag}}'
                                                                                              gauge-value='vm.selectedDevice.battery.value'
                                                                                              value-font-color='rgb(153, 153, 153)'
-                                                                                             min='800'
-                                                                                             max='1260'
+                                                                                             min='0'
+                                                                                             max='100'
                                                                                              hide-min-max='false'
                                                                                              hide-value='false'
                                                                                              show-inner-shadow='false'
