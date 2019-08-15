@@ -17,6 +17,6 @@ if(typeof query == 'string'){
       	return "INVALID OR MISSING PARAMETER";
     }
 }
-
 var devices = deviceManager.getDeviceAlertsEntries(query.id);
 return devices;
+
