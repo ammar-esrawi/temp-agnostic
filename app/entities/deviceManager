@@ -30,9 +30,13 @@ function getLatestDeviceEntry(id) {
 }
 
 function getDeviceAlertsEntries(id) {
-   var key = event_prefix + id;;
+   var key = event_prefix ;
+   if(id){
+     key+=id+"_";
+   }
+  log.info("key is: "+key)
    var params = {
-       "query" : "key like \""+key+"_%\" and event_type in [\"alert\"]",
+       "query" : "key like \""+key+"%\" and event_type in [\"alert\"]",
        "fields": "*",
        "sort": "creationDate<date:DESC>"
         
