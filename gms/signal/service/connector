@@ -51,7 +51,7 @@ Connector.prototype.makeBodyXML = function (data) {
     var template = file.read("./xmltemplate.template");
     var fileContent = template.content;
     var body = _.template(fileContent)(data);
-    console.log(body)
+    log.info("body is : "+ body);
     return body;
 
 }

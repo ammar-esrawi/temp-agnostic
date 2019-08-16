@@ -7,9 +7,11 @@ const gms = {
     data: {
         //you can add more default config here
         username: "C0@verGiX",
-        password: "Co@vergIx!",
-        account: "900410001",
+        userpassword: "Co@vergIx!",
+        account: "10001",
      	  signalformat: "CID",
+      line: "004",
+      receiver: "09",
         point: "1",
     }
 

@@ -10,9 +10,9 @@ var subdomain = require("subdomain");
 var log = require("log");
 log.setLevel("INFO");
 
-log.info("parameters  : " + JSON.stringify(request.parameters));
-var query=JSON.parse(request.parameters);
-var id=query.body.id;
+log.info("request  : " + JSON.stringify(request));
+var query=request.parameters;
+var id=query.id;
 log.info("id  : " + id);
 
 const dmpBrokerToken="VTk2NkM1RjhEODpteURtcEJyb2tlcjpFOEIwOTc0RTk3Mzg0ODdCMjQ5Qzc5QUNFNDkyOTdDNQ==";
@@ -22,8 +22,9 @@ const dmpBrokerToken="VTk2NkM1RjhEODpteURtcEJyb2tlcjpFOEIwOTc0RTk3Mzg0ODdCMjQ5Qz
         const api = "https://convergia-marvette.scriptrapps.io/app/api/subscription/subscriber?auth_token="+dmpBrokerToken;
 				log.info("Generated Ingest API : " + JSON.stringify(api));
        
-        var randomDevice ={ id: '', id_wasp: id,lat: "40.7411", long: "-73.9816" } 
+        var randomDevice ={ id: '', id_wasp: id,lat: "-33.4008511", long: "-70.54576139" } 
         var randomValue = "WT";
+				var value=getRandomValue(randomValue);
         //Generate random data to simulate the device data
         var dataSnap =
         {
@@ -36,9 +37,10 @@ const dmpBrokerToken="VTk2NkM1RjhEODpteURtcEJyb2tlcjpFOEIwOTc0RTk3Mzg0ODdCMjQ5Qz
                 "lon": randomDevice.long
             },
             "sensor":randomValue,
-            "value":getRandomValue(randomValue),
+            "value":value
+          
         };
-			
+			 dataSnap[randomValue]=value;
         
         log.info("Generated Data : " + JSON.stringify(dataSnap));
 
@@ -52,7 +54,7 @@ const dmpBrokerToken="VTk2NkM1RjhEODpteURtcEJyb2tlcjpFOEIwOTc0RTk3Mzg0ODdCMjQ5Qz
             }
         });
 
-        return [callResult, dataSnap];
+       
 
 
 

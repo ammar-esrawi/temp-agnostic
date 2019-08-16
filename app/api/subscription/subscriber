@@ -11,6 +11,7 @@ var deviceEvaluator = require("app/entities/deviceEvaluator");
 var devicePublisher = require("app/entities/devicePublisher");
 
 var config = require("app/config/config");
+var adaptor = require("app/config/meshelium/wasp/payloadAdaptor");
 
 var deviceConfig = null;
 var data = {};
@@ -21,8 +22,9 @@ log.info("[app/api/subscription/subscriber] received the following payload \n" +
 var body = request.body ? request.body : ((request.rawBody) ? request.rawBody : request.parameters);
 var inputData = typeof(body) == "string" ? JSON.parse(body) : body;
 
+  //MFE: in case renzo cannot change payload format to be usabe in jsonmapper as it, call the adaptor under config, this should be in the prescript of the transformation
   
-
+	inputData=adaptor.transform(inputData); 
   log.info("adaptor resulted the following payload \n" + JSON.stringify(inputData));
 
   //end MFE

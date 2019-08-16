@@ -16,8 +16,8 @@ const dmpBrokerToken="VTk2NkM1RjhEODpteURtcEJyb2tlcjpFOEIwOTc0RTk3Mzg0ODdCMjQ5Qz
         const api = "https://convergia-marvette.scriptrapps.io/app/api/subscription/subscriber?auth_token="+dmpBrokerToken;
 				log.info("Generated Ingest API : " + JSON.stringify(api));
         var devices = [
-            { id: '2345', id_wasp: 'MSD_SA',lat: "40.7411", long: "-73.9816" },
-            { id: '1345', id_wasp: 'MSK_SA', lat: "40.74", long: "-73.9899" },
+            { id: '2345', id_wasp: 'MSK_SA',lat: "-33.4008511", long: "-70.54576139" },
+            { id: '1345', id_wasp: 'MSD_SA', lat: "-33.4008591", long: "-70.54576239" },
             { id: '0345' ,id_wasp: 'MSV_SA' }];
         var values = ["WT",
             "BAT",
@@ -25,8 +25,9 @@ const dmpBrokerToken="VTk2NkM1RjhEODpteURtcEJyb2tlcjpFOEIwOTc0RTk3Mzg0ODdCMjQ5Qz
             "ORP",
             "DO",
             "PH"];
-        var randomDevice ={ id: '2345', id_wasp: 'MSD_SA',lat: "40.7411", long: "-73.9816" } //devices[Math.floor(Math.random() * devices.length)];
+        var randomDevice ={ id: '2345', id_wasp: 'MSD_SA',lat: "-33.4008511", long: "-70.54576139" } //devices[Math.floor(Math.random() * devices.length)];
         var randomValue = "WT"//values[Math.floor(Math.random() * values.length)];
+        var value=getRandomValue(randomValue);
         //Generate random data to simulate the device data
         var dataSnap =
         {
@@ -39,9 +40,9 @@ const dmpBrokerToken="VTk2NkM1RjhEODpteURtcEJyb2tlcjpFOEIwOTc0RTk3Mzg0ODdCMjQ5Qz
                 "lon": randomDevice.long
             },
             "sensor":randomValue,
-            "value":getRandomValue(randomValue),
+            "value":value,
         };
-			
+			dataSnap[randomValue]=value;
         
         log.info("Generated Data : " + JSON.stringify(dataSnap));
 
