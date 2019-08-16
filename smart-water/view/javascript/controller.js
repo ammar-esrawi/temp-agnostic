@@ -42,16 +42,18 @@ myApp.controller('swDashboardCtrl', function($scope,  wsClient, httpClient, $rou
 
 
     vm.consumeData = function(data) {
-      
+      	
         if(data.latest) {
             data = data.latest
             vm.latest =  data;
+          console.log(vm.latest)
         }
         if(data && data[vm.deviceKey] && data[vm.deviceKey][0] && data[vm.deviceKey][0][0]) {
             vm.selectedDevice = data[vm.deviceKey][0][0];
             vm.latest = vm.selectedDevice
+            console.log(vm.selectedDevice)
 		 }
-      console.log(vm.selectedDevice)
+      
     }
 
     vm.historicalFormatData = function(data){
@@ -61,6 +63,9 @@ myApp.controller('swDashboardCtrl', function($scope,  wsClient, httpClient, $rou
             return data;
     }  
 
+    vm.batteryFormatData = function(data) {
+        return data.latest.battery;
+    }
     vm.temperatureFormatData = function(data) {
         return data.latest.temperature;
     }
@@ -69,8 +74,8 @@ myApp.controller('swDashboardCtrl', function($scope,  wsClient, httpClient, $rou
         return data.latest.pressure;
     }
 
-    vm.humidityFormatData = function(data){
-        return data.latest.humidity;
+    vm.phFormatData = function(data){
+        return data.latest.ph;
     }
     
     vm.proximityFormatData = function(data){

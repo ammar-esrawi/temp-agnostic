@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="set timehttp://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <Signal xmlns="http://tempuri.org/">
+      <% if (typeof(pollmessageflag) !== "undefined") { %><PollMessageFlag><%= pollmessageflag %></PollMessageFlag><% } %>
+      <% if (typeof(username) !== "undefined") { %><UserName><%= username %></UserName><% } %>
+      <% if (typeof(userpassword) !== "undefined") { %><UserPassword><%= userpassword %></UserPassword><% } %>
+      <% if (typeof(receiver) !== "undefined") { %><Receiver><%= receiver %></Receiver><% } %>
+      <% if (typeof(line) !== "undefined") { %><Line><%= line %></Line><% } %>
+      <% if (typeof(account) !== "undefined") { %><Account><%= account %></Account><% } %>
+      <% if (typeof(signalformat) !== "undefined") { %><SignalFormat><%= signalformat %></SignalFormat><% } %>
+      <% if (typeof(signalcode) !== "undefined") { %><SignalCode><%= signalcode %></SignalCode><% } %>
+      <% if (typeof(point) !== "undefined") { %><Point><%= point %></Point><% } %>
+      <% if (typeof(area) !== "undefined") { %><Area><%= area %></Area><% } %>
+      <% if (typeof(userid) !== "undefined") { %><UserID><%= userid %></UserID><% } %>
+      <% if (typeof(text) !== "undefined") { %><Text><%= text %></Text><% } %>
+      <% if (typeof(date) !== "undefined") { %><Date><%= date %></Date><% } %>
+      <% if (typeof(aniphone) !== "undefined") { %><ANIPhone><%= aniphone %></ANIPhone><% } %>
+      <% if (typeof(longitude) !== "undefined") { %><Longitude><%= longitude %></Longitude><% } %>
+      <% if (typeof(latitude) !== "undefined") { %><Latitude><%= latitude %></Latitude><% } %>
+      <% if (typeof(filename) !== "undefined") { %><FileName><%= filename %></FileName><% } %>
+      <% if (typeof(url) !== "undefined") { %><URL><%= url %></URL><% } %>
+      <% if (typeof(videotype) !== "undefined") { %><VideoType><%= videotype %></VideoType><% } %>
+      <% if (typeof(testsignalflag) !== "undefined") { %><TestSignalFlag><%= testsignalflag %></TestSignalFlag><% } %>
+    </Signal>
+  </soap:Body>
+</soap:Envelope>

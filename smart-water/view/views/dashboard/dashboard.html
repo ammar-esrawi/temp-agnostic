@@ -243,12 +243,12 @@
                                                                                      counter='false'
                                                                                      http-method='GET'
                                                                                      symbol='{{vm.selectedDevice.ph_unit.value || ""}}'
-                                                                                     on-format-data='vm.humidityFormatData'
+                                                                                     on-format-data='vm.phFormatData'
                                                                                      ></scriptr-gauge> </div>
                         </div>
                     </div>
                 </li>
-                <li class="myItem" gridster-item='{sizeX: 3, sizeY: 1, col: 1, row: 1}' ng-if="vm.selectedDevice.ph">
+                <li class="myItem" gridster-item='{sizeX: 3, sizeY: 1, col: 1, row: 2}' ng-if="vm.selectedDevice.ph">
                         <div class="box">
                             <div class="box-content">
                                 <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="PH" class="box-label">PH</div>

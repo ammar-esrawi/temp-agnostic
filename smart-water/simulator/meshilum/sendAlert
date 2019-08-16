@@ -9,24 +9,21 @@ var http = require("http");
 var subdomain = require("subdomain");
 var log = require("log");
 log.setLevel("INFO");
+
+log.info("parameters  : " + JSON.stringify(request.parameters));
+var query=JSON.parse(request.parameters);
+var id=query.body.id;
+log.info("id  : " + id);
+
 const dmpBrokerToken="VTk2NkM1RjhEODpteURtcEJyb2tlcjpFOEIwOTc0RTk3Mzg0ODdCMjQ5Qzc5QUNFNDkyOTdDNQ==";
 
 
         //Build the url of the ingest api
         const api = "https://convergia-marvette.scriptrapps.io/app/api/subscription/subscriber?auth_token="+dmpBrokerToken;
 				log.info("Generated Ingest API : " + JSON.stringify(api));
-        var devices = [
-            { id: '2345', id_wasp: 'MSD_SA',lat: "40.7411", long: "-73.9816" },
-            { id: '1345', id_wasp: 'MSK_SA', lat: "40.74", long: "-73.9899" },
-            { id: '0345' ,id_wasp: 'MSV_SA' }];
-        var values = ["WT",
-            "BAT",
-            "COND",
-            "ORP",
-            "DO",
-            "PH"];
-        var randomDevice ={ id: '2345', id_wasp: 'MSD_SA',lat: "40.7411", long: "-73.9816" } //devices[Math.floor(Math.random() * devices.length)];
-        var randomValue = "WT"//values[Math.floor(Math.random() * values.length)];
+       
+        var randomDevice ={ id: '', id_wasp: id,lat: "40.7411", long: "-73.9816" } 
+        var randomValue = "WT";
         //Generate random data to simulate the device data
         var dataSnap =
         {
@@ -68,7 +65,7 @@ const dmpBrokerToken="VTk2NkM1RjhEODpteURtcEJyb2tlcjpFOEIwOTc0RTk3Mzg0ODdCMjQ5Qz
 *
 */
 function getRandomValue(val) {
-    return getRandomInt(-20,100);//TODO Implement Simulation consest data samples
+    return getRandomInt(-20,-1);
 }
 /**
 * Random Int limits included

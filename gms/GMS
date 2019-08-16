@@ -1,0 +1,41 @@
+var configModule = require("./config");
+var clientModule = require("./client");
+var conMngr = require("./signal/service/connectormanager");
+
+/**
+ * GMS Manager
+ * @class GMS
+ * @constructor
+ * @param {Object} [config]
+ * @param {Object} [config.client] : instance of HttpClient
+ */
+
+function GMS(config) {
+    
+    if (config) {
+        
+        for(var key in config){
+            this[key] = config[key]
+        }
+    }
+   
+    this.gms = this.gms ? this.gms : configModule.gms;
+    
+    this.client=this.client?this.client:new clientModule.Client({endPoint:this.gms.endPoint} );
+    
+}
+
+/**
+ * @method  getConnector
+ * @return {Object} : Connector Instance
+ */
+GMS.prototype.getConnectorManager = function() {
+  
+    if (!this.connectorManager) {
+        this.connectorManager = new conMngr.ConnectorManager({
+            client:this.client
+        });
+    }
+    
+    return this.connectorManager;
+};

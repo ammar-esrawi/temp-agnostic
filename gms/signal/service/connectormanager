@@ -1,0 +1,45 @@
+var config = require("../../config");
+var connectorModule = require("./connector");
+
+/**
+ * GMS Signal Service Manager
+ * @class ConnectorManager
+ * @constructor
+ * @param {Object} [dto]
+ * @param {Object} [dto.client] : instance of HttpClient
+ */
+function ConnectorManager(dto) {
+
+    if (!dto || !dto.client) {
+
+        throw {
+
+            errorCode: "Invalid_Parameter",
+            errorDetail: "ConnectorManager dto and dto.client cannot be null or empty"
+        };
+    }
+
+    for (key in dto) {
+        this[key] = dto[key];
+    }
+
+}
+
+/**
+ * @method  getConnector
+ * @return {Object} : Connector Instance
+ */
+ConnectorManager.prototype.getConnector = function () {
+    if(!this.endPoint){
+        this.endPoint=config.gms.endPoint;
+    }
+
+    
+    return new connectorModule.Connector(
+        {
+            client: this.client,
+            endPoint:this.endPoint
+        }
+    );
+
+}
