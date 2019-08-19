@@ -19,6 +19,10 @@ var le=deviceManager.getLatestDeviceEntry(pl.id);
 for(key in le){
   pl["_le_"+key]=le[key];//le stands for latest entry
 }
+
+var log = require("log"); 
+log.setLevel("info");
+log.info("DTDTDT PL \n" + JSON.stringify(pl));
 //PRESCRIPT END
 
 //RULES EVALUATION START
@@ -26,13 +30,13 @@ if(typeof pl != "object") {
   return[];
 } else { 
 	  if((pl != null && pl["temperature"] != undefined && pl["temperature"] >=30) && (pl != null && pl["_le_temperature"] != undefined && pl["_le_temperature"] <30)){
-       decision.push({ "sendEmail": "HIGH_TEMPERATURE","isAlert": "true" });
+       decision.push({ "sendEmail": "HIGH_TEMPERATURE","isAlert": "true","alertType": "HIGH_TEMPERATURE" });
 	} 
 	  if((pl != null && pl["temperature"] != undefined && pl["temperature"] >0) && (pl != null && pl["_le_temperature"] != undefined && pl["_le_temperature"] <=0)){
-       decision.push({ "isAlert": "true","gms": "R140" });
+       decision.push({ "gms": "R140","isAlert": "true","alertType": "FREEZ_RECOVER" });
 	} 
 	  if((pl != null && pl["temperature"] != undefined && pl["temperature"] <=0) && (pl != null && pl["_le_temperature"] != undefined && pl["_le_temperature"] >0)){
-       decision.push({ "isAlert": "true","gms": "E140" });
+       decision.push({ "gms": "E140","isAlert": "true","alertType": "FREEZ" });
 	} 
 }
 //RULES EVALUATION END

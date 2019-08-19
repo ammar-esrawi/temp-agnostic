@@ -1,0 +1,57 @@
+var config = require("../../config");
+var _ = require("modules/underscore/underscore.js")._;
+var file =  require("file");
+var log = require("log"); 
+log.setLevel("info");
+/**
+ * Wrapper of the GMS Signal Service APIs
+ * @class Connector
+ * @constructor
+ * @param {Object} [dto]
+ * @param {Object} [dto.client] : instance of HttpClient
+ * @param {String} [dto.endPoint] : endPoint URI that you to connect to
+ */
+
+function Connector(dto) {
+    if (!dto || !dto.client || !dto.endPoint  ) {
+        throw {
+            errorCode: config.errorCodeList['missingParameter'],
+            errorDetail: "dto and dto.client and dto.endPoint cannot be null or empty"
+        };
+    }
+
+    for (key in dto) {
+        this[key] = dto[key];
+    }
+}
+
+/**
+ * @method  send
+ * @param {Object} [data]
+ * @return {Object} : the response body from GMS API
+ */
+Connector.prototype.send = function (data) {
+    //fill missing data from config
+  	log.info("BEFORE data is :"+JSON.stringify(data))
+    for(var key in config.gms.data){
+        if(!data[key])
+        data[key] = config.gms.data[key];
+    }
+		log.info("AFTER data is :"+JSON.stringify(data))
+    var params = {};
+    params.method = "POST"
+    params.url = this.endPoint;
+    params.bodyString = this.makeBodyXML(data);
+    
+    var response = this.client.callApi(params);
+    return response.body;
+
+}
+Connector.prototype.makeBodyXML = function (data) {
+    var template = file.read("./xmltemplate.template");
+    var fileContent = template.content;
+    var body = _.template(fileContent)(data);
+    log.info("body is : "+ body);
+    return body;
+
+}

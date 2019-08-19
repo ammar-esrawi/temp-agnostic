@@ -1,0 +1,23 @@
+var gmsModule = require('./GMS');
+
+var gms=new gmsModule.GMS();
+var cnMngr=gms.getConnectorManager();
+var myConnector=cnMngr.getConnector();
+
+
+var data={
+    "signalformat": "CID",
+    "signalcode": "E140",
+    "point": "1",
+    "url": "SOME_URL",
+};
+
+try{
+    
+    var result= myConnector.send(
+        data
+    );
+  	return xmlToJson(result);
+}catch(exception){
+    return exception;
+}

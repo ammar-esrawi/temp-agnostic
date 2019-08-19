@@ -11,7 +11,7 @@ var deviceEvaluator = require("app/entities/deviceEvaluator");
 var devicePublisher = require("app/entities/devicePublisher");
 
 var config = require("app/config/config");
-var adaptor = require("config/meshelium/wasp/payloadAdaptor");
+var adaptor = require("app/config/meshelium/wasp/payloadAdaptor");
 
 var deviceConfig = null;
 var data = {};

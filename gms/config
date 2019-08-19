@@ -1,0 +1,26 @@
+//The gms Info 
+const gms = {
+    baseUrl: "https://mycentralconnect.com/",
+    mainNameSpaceDocument: "convergia1",
+    endPoint: "https://mycentralconnect.com/convergia1/receiver.asmx",
+    name: "GMS ACOUNT NAME",//not used for now but it will help you distinguish your apps
+    data: {
+        //you can add more default config here
+        username: "C0@verGiX",
+        userpassword: "Co@vergIx!",
+        account: "10001",
+     	  signalformat: "CID",
+      line: "004",
+      receiver: "09",
+        point: "1",
+    }
+
+};
+
+
+
+const errorCodeList = {
+    "missingParameter": "MISSING_PARAMETER",
+    "invalidAction": "INVALID_ACTION",
+    "notFound": "ENTITY_NOT_FOUND"
+};
